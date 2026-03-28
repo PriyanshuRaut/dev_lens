@@ -195,4 +195,4 @@ Future<String> analyzeText(String prompt) async {
 ## 💡 Why DevLens?
 
 Because debugging shouldn’t feel like decoding ancient runes.
-DevLens turns chaos into clarity — fast, structured, and developer-friendly.
+DevLens turns chaoss into clarity — fast, structured, and developer-friendly.
