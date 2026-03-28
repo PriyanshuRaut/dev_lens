@@ -196,3 +196,5 @@ Future<String> analyzeText(String prompt) async {
 
 Because debugging shouldn’t feel like decoding ancient runes.
 DevLens turns chaos into clarity — fast, structured, and developer-friendly.
+
+Happy Coding...
