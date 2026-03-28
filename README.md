@@ -165,7 +165,7 @@ Future<String> analyzeText(String prompt) async {
     },
     body: '''
     {
-      "model": "gpt-3.5-turbo",
+      "model": "gpt-4.5-turbo",
       "messages": [
         {"role": "user", "content": "$prompt"}
       ]
