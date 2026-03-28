@@ -190,10 +190,6 @@ Future<String> analyzeText(String prompt) async {
 
 ---
 
-## 📌 Resume Highlight
-
-> Developed **DevLens**, a cross-platform Flutter app that uses generative AI to debug code, APIs, JSON, logs, and WebSocket data through structured prompt engineering.
-
 ---
 
 ## 💡 Why DevLens?
