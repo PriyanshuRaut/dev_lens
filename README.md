@@ -1,200 +1,224 @@
-# 🔍 DevLens – A Lens to See Through Errors
+# 🔍 DevLens — A Lens to See Through Errors
 
-## 🚀 Project Overview
+<p align="center">
+  <img src="https://img.shields.io/badge/Flutter-%2302569B.svg?style=for-the-badge&logo=Flutter&logoColor=white" />
+  <img src="https://img.shields.io/badge/Dart-%230175C2.svg?style=for-the-badge&logo=dart&logoColor=white" />
+  <img src="https://img.shields.io/badge/AI-Gemini%20%7C%20Groq-blueviolet?style=for-the-badge" />
+  <img src="https://img.shields.io/badge/Open%20Source-%E2%9D%A4-red?style=for-the-badge" />
+  <img src="https://img.shields.io/badge/PRs-Welcome-brightgreen?style=for-the-badge" />
+</p>
 
-**DevLens** is a Flutter-based AI debugging assistant that helps developers quickly understand and fix errors across multiple domains.
+<p align="center">
+  <strong>Transforming developer chaos into actionable clarity.</strong><br/>
+  An AI-powered debugging toolkit that turns cryptic logs, stack traces, and broken APIs<br/>
+  into human-readable solutions — right inside Flutter.
+</p>
 
-**Goal:**
-Provide a unified, AI-driven debugging toolkit that turns confusing errors into clear, actionable insights.
+---
 
-**What it does:**
+## 🚀 Overview
 
-* Accepts:
+**DevLens** is a Flutter-based AI debugging assistant that helps developers quickly understand and resolve errors across multiple domains.
 
-  * Code snippets & syntax errors
-  * API responses
-  * JSON data
-  * Logs / stack traces
-  * WebSocket messages
+**It accepts:**
+- Code snippets & syntax errors
+- API responses (JSON or raw text)
+- Logs & stack traces
+- WebSocket messages
 
-* Returns:
+**It returns:**
+- A human-readable explanation of the issue
+- The root cause, pinpointed
+- Suggested fixes or corrected code
 
-  * Human-readable explanation
-  * Root cause of the issue
-  * Suggested fixes or corrected code
-
-⚡ No backend required — all AI analysis is powered via external APIs (Groq / Google Gemini).
+> ⚡ **No backend required.** All AI analysis is powered via external APIs — [Groq](https://console.groq.com/) and [Google Gemini](https://aistudio.google.com/).
 
 ---
 
 ## ✨ Key Features (MVP)
 
-### 🧠 AI Debug Assistant (Core)
+### 🧠 AI Debug Assistant
+Paste any code or error message and get back an explanation of what went wrong, which line is problematic, and a suggested fix.
 
-* Paste any code or error
-* Get:
-
-  * Error explanation
-  * Problematic line identification
-  * Suggested fix
-
-Example:
-`if (x = 5)` → explains assignment vs comparison issue
-
----
+> **Example:** `if (x = 5)` → DevLens explains the assignment vs. comparison mistake and shows the corrected version.
 
 ### 🌐 API Error Debugger
-
-* Analyze API responses (JSON or raw text)
-* Detect:
-
-  * Missing fields
-  * Incorrect structure
-  * Status code meaning
-
----
+Analyze raw API responses to detect missing fields, incorrect structure, and what a given status code actually means.
 
 ### 📜 Log Analyzer
-
-* Paste logs or stack traces
-* Extract:
-
-  * Key errors
-  * Exceptions
-  * Likely root cause
-
----
+Paste logs or stack traces to instantly extract key errors, exceptions, and the most likely root cause.
 
 ### 🧾 JSON Formatter & Analyzer
-
-* Format raw JSON into readable structure
-* AI explains schema and detects anomalies
-
----
+Formats raw JSON into a readable structure and uses AI to explain the schema and flag anomalies.
 
 ### 🔌 WebSocket Inspector
-
-* Connect to WebSocket URLs
-* View incoming messages
-* Send test messages
-* Built using `web_socket_channel`
-
----
+Connect to any WebSocket URL, view incoming messages in real time, and send test payloads. Built using [`web_socket_channel`](https://pub.dev/packages/web_socket_channel).
 
 ### 🎯 Smart Prompt Templates
-
-Structured actions instead of free chat:
-
-* “Explain this code error”
-* “Analyze this API response”
-* “Debug this JSON”
-* “Inspect WebSocket messages”
+Structured one-tap actions instead of free-form chat:
+- *"Explain this code error"*
+- *"Analyze this API response"*
+- *"Debug this JSON"*
+- *"Inspect WebSocket messages"*
 
 ---
 
-### ➕ Additional Perks
+## 🛠️ Tech Stack
 
-* Beginner-friendly explanations
-* Highlighted problem areas
-* Suggested corrected output
-* Copy/share results
-
----
-
-## 🛠 Tech Stack
-
-### 📱 Frontend
-
-* Flutter (Dart)
-
-### 🤖 AI Integration
-
-* Groq API
-* Google Gemini API
-
-### 📦 Packages
-
-* `http` – API calls
-* `web_socket_channel` – WebSocket handling
-* `provider` / `riverpod` – State management
-* `url_launcher` – External links
-
-### 🧩 Architecture Choice
-
-* No backend
-* No database required
-* Local state + external AI APIs
+| Layer | Technology |
+| :--- | :--- |
+| 📱 Frontend | Flutter (Dart) |
+| 🤖 AI | Groq API, Google Gemini API |
+| 🌐 Networking | `http`, `web_socket_channel` |
+| 📦 State | `provider` / `riverpod` |
+| 🔗 Utilities | `url_launcher` |
 
 ---
 
-## 🏗 Architecture & Modules
+## 🏗️ Architecture & Core Flow
 
-DevLens is structured into modular screens:
+DevLens is organized into focused, modular screens — each backed by a shared **AI Manager**:
 
-* **AI Debug Screen** → Code/error analysis
-* **API Debug Screen** → API response inspection
-* **Log Analyzer Screen** → Log parsing
-* **JSON Screen** → Formatting + analysis
-* **WebSocket Screen** → Real-time message inspection
+```
+┌─────────────────────────────────────────┐
+│              User Input                 │
+│  (Code / API Response / Log / JSON)     │
+└──────────────────┬──────────────────────┘
+                   │
+                   ▼
+        Structured Prompt Template
+                   │
+                   ▼
+         AI Manager (HTTP Client)
+                   │
+          ┌────────┴────────┐
+          ▼                 ▼
+     Groq API         Gemini API
+          │                 │
+          └────────┬────────┘
+                   ▼
+         Parsed AI Response
+                   │
+                   ▼
+       Rendered UI with Highlights
+```
 
-### 🔄 Core Flow
+**Modules:**
 
-All modules use a shared **AI Manager**:
-
-1. Take user input
-2. Format structured prompt
-3. Send via HTTP to AI API
-4. Display response
+- **AI Debug Screen** → Code & syntax error analysis
+- **API Debug Screen** → API response inspection
+- **Log Analyzer Screen** → Log & stack trace parsing
+- **JSON Screen** → Formatting & schema analysis
+- **WebSocket Screen** → Real-time message inspection
 
 ---
 
-## 🧪 Example (AI Call - Dart)
+## 🧪 Code Snapshot — AI Bridge
 
 ```dart
+import 'dart:convert';
 import 'package:http/http.dart' as http;
 
 Future<String> analyzeText(String prompt) async {
-  final apiUrl = 'https://api.groq.com/v1/complete';
-  final apiKey = 'YOUR_GROQ_KEY';
+  const apiUrl = 'https://api.groq.com/openai/v1/chat/completions';
+  const apiKey = 'YOUR_GROQ_API_KEY';
 
   final response = await http.post(
     Uri.parse(apiUrl),
     headers: {
-      'Authorization': apiKey,
-      'Content-Type': 'application/json'
+      'Authorization': 'Bearer $apiKey',
+      'Content-Type': 'application/json',
     },
-    body: '''
-    {
-      "model": "gpt-4.5-turbo",
-      "messages": [
-        {"role": "user", "content": "$prompt"}
-      ]
-    }
-    '''
+    body: jsonEncode({
+      'model': 'llama3-8b-8192',
+      'messages': [
+        {'role': 'user', 'content': prompt},
+      ],
+    }),
   );
 
-  return response.body;
+  if (response.statusCode == 200) {
+    final data = jsonDecode(response.body);
+    return data['choices'][0]['message']['content'] as String;
+  } else {
+    throw Exception('Groq API error: ${response.statusCode}');
+  }
 }
 ```
 
 ---
 
-## 🗺 MVP Roadmap
+## 🚀 Getting Started
 
-* [ ] API key setup (Groq / Gemini)
-* [ ] AI Debug Screen
-* [ ] JSON Formatter
-* [ ] API Debugger
-* [ ] WebSocket Client
-* [ ] Log Analyzer
+### Prerequisites
+- **Flutter SDK** `^3.10.0`
+- API keys from [Groq Cloud](https://console.groq.com/) or [Google AI Studio](https://aistudio.google.com/)
+
+### Installation
+
+```bash
+# 1. Clone the repository
+git clone https://github.com/PriyanshuRaut/dev_lens.git
+cd dev_lens
+
+# 2. Install dependencies
+flutter pub get
+
+# 3. Add your API keys
+#    Open lib/config/api_config.dart and fill in your keys
+
+# 4. Run the app
+flutter run
+```
+
+> ⚠️ **Never commit your API keys.** Add your config file to `.gitignore`.
 
 ---
 
+## 🗺️ MVP Roadmap
+
+| Status | Milestone |
+| :---: | :--- |
+| ✅ | Repository setup & initial commit |
+| ⬜ | API Key Management UI |
+| ⬜ | AI Debug Screen |
+| ⬜ | JSON Formatter & Analyzer |
+| ⬜ | API Debugger |
+| ⬜ | WebSocket Client |
+| ⬜ | Log Analyzer |
+| ⬜ | Multi-model toggle (Gemini ↔ Groq) |
+| ⬜ | Dark Mode & custom themes |
+
 ---
 
-## 💡 Why DevLens?
+## 🤝 Contributing
 
-Because debugging shouldn’t feel like decoding ancient runes.
-DevLens turns chaos into clarity — fast, structured, and developer-friendly.
+Contributions are welcome — bug fixes, new features, docs improvements, all of it.
 
-Happy Coding...
+1. Fork the repository
+2. Create your branch: `git checkout -b feat/your-feature-name`
+3. Commit your changes: `git commit -m 'feat: describe your change'`
+4. Push to your branch: `git push origin feat/your-feature-name`
+5. Open a Pull Request
+
+---
+
+## 👥 Contributors
+
+<a href="https://github.com/PriyanshuRaut"><img src="https://github.com/PriyanshuRaut.png" width="40" style="border-radius:50%" /></a>
+<a href="https://github.com/tapabrata1701"><img src="https://github.com/tapabrata1701.png" width="40" style="border-radius:50%" /></a>
+<a href="https://github.com/priyanshuraut1009-debug"><img src="https://github.com/priyanshuraut1009-debug.png" width="40" style="border-radius:50%" /></a>
+
+---
+
+## 📄 License
+
+Distributed under the MIT License. See [`LICENSE`](LICENSE) for details.
+
+---
+
+<p align="center">
+  Because debugging shouldn't feel like decoding ancient runes.<br/>
+  <strong>DevLens turns chaos into clarity — fast, structured, and developer-friendly.</strong><br/><br/>
+  Built with 💙 · Happy Coding!
+</p>
