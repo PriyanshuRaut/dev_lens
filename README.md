@@ -233,3 +233,6 @@ Contributions are always welcome! Check out the open [`good first issue`](https:
 <p align="center">
   Made with ❤️ and Flutter &nbsp;·&nbsp; <b>Happy Coding!</b>
 </p>
+## Contributing
+
+See [CONTRIBUTING.md](CONTRIBUTING.md) for how to get started.
